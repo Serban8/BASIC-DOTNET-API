@@ -12,28 +12,13 @@ namespace BASIC_API.Controllers
     [Authorize]
     public class StudentsController : ControllerBase
     {
-        private StudentService studentService { get; set; }
+        private StudentService studentService;
 
 
         public StudentsController(StudentService studentService)
         {
             this.studentService = studentService;
         }
-
-        [HttpPost("add")]
-        [Authorize(Roles = Role.Teacher)]
-        public IActionResult Add(StudentAddDto payload)
-        {
-            var result = studentService.AddStudent(payload);
-
-            if (result == null)
-            {
-                return BadRequest("Student cannot be added");
-            }
-
-            return Ok(result);
-        }
-
 
         [HttpGet("get-all")]
         //[Authorize(Roles = Role.Teacher + "," + Role.Student)]
@@ -45,7 +30,7 @@ namespace BASIC_API.Controllers
         }
 
         [HttpGet("get/{studentId}")]
-        [Authorize(Roles = Role.Teacher)]
+        [Authorize(Roles = "Teacher")]
         public ActionResult<Student> GetById(int studentId)
         {
             var result = studentService.GetById(studentId);

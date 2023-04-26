@@ -34,16 +34,16 @@ builder.Services.AddAuthentication(options =>
 
 builder.Services.AddAuthorization(options =>
 {
-    options.AddPolicy(Role.Student, policy =>
+    options.AddPolicy("Student", policy =>
     {
         policy.RequireAuthenticatedUser();
-        policy.RequireRole(Role.Student);
+        policy.RequireRole("Student");
     });
 
-    options.AddPolicy(Role.Teacher, policy =>
+    options.AddPolicy("Teacher", policy =>
     {
         policy.RequireAuthenticatedUser();
-        policy.RequireRole(Role.Teacher);
+        policy.RequireRole("Teacher");
     });
 });
 

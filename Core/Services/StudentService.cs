@@ -16,29 +16,6 @@ namespace Core.Services
             this.unitOfWork = unitOfWork;
         }
 
-        public StudentAddDto AddStudent(StudentAddDto payload)
-        {
-            if (payload == null) return null;
-
-            var existingClass = unitOfWork.Classes.GetById(payload.ClassId);
-            if (existingClass == null) return null;
-
-            var newStudent = new Student
-            {
-                FirstName = payload.FirstName,
-                LastName = payload.LastName,
-                DateOfBirth = payload.DateOfBirth,
-                Address = payload.Address,
-
-                ClassId = existingClass.Id
-            };
-
-            unitOfWork.Students.Insert(newStudent);
-            unitOfWork.SaveChanges();
-
-            return payload;
-        }
-
         public List<Student> GetAll()
         {
             var results = unitOfWork.Students.GetAll();

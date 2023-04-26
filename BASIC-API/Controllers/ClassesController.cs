@@ -1,5 +1,6 @@
 ﻿using Core.Dtos;
 using Core.Services;
+using DataLayer.Enums;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
@@ -19,7 +20,7 @@ namespace BASIC_API.Controllers
         }
 
         [HttpPost("add")]
-        [Authorize(Roles = Role.Teacher)]
+        [Authorize(Roles = "Teacher")]
         public IActionResult Add(ClassAddDto payload)
         {
             var result = classService.Add(payload);

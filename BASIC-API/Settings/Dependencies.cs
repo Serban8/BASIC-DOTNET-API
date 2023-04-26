@@ -23,13 +23,15 @@ namespace BASIC_API.Settings
         {
             services.AddScoped<StudentService>();
             services.AddScoped<ClassService>();
-            //services.AddScoped<AuthorizationService>();
+            services.AddScoped<UserService>();
+            services.AddScoped<AuthorizationService>();
         }
 
         private static void AddRepositories(IServiceCollection services)
         {
             services.AddScoped<StudentsRepository>();
             services.AddScoped<ClassRepository>();
+            services.AddScoped<TeachersRepository>();
             services.AddScoped<UnitOfWork>();
         }
 

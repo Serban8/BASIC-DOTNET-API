@@ -7,18 +7,22 @@ namespace DataLayer
         public StudentsRepository Students { get; }
         public ClassRepository Classes { get; }
 
+        public TeachersRepository Teachers { get; }
+
         private readonly AppDbContext _dbContext;
 
         public UnitOfWork
         (
             AppDbContext dbContext,
             StudentsRepository studentsRepository,
-            ClassRepository classes
+            ClassRepository classes,
+            TeachersRepository teachers
         )
         {
             _dbContext = dbContext;
             Students = studentsRepository;
             Classes = classes;
+            Teachers = teachers;
         }
 
         public void SaveChanges()
