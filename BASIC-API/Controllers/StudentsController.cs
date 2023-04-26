@@ -2,12 +2,14 @@
 using Core.Services;
 using DataLayer.Dtos;
 using DataLayer.Entities;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace BASIC_API.Controllers
 {
     [ApiController]
     [Route("api/students")]
+    [Authorize]
     public class StudentsController : ControllerBase
     {
         private StudentService studentService { get; set; }
@@ -18,7 +20,8 @@ namespace BASIC_API.Controllers
             this.studentService = studentService;
         }
 
-        [HttpPost("/add")]
+        [HttpPost("add")]
+        [Authorize(Roles = Role.Teacher)]
         public IActionResult Add(StudentAddDto payload)
         {
             var result = studentService.AddStudent(payload);
@@ -32,7 +35,8 @@ namespace BASIC_API.Controllers
         }
 
 
-        [HttpGet("/get-all")]
+        [HttpGet("get-all")]
+        //[Authorize(Roles = Role.Teacher + "," + Role.Student)]
         public ActionResult<List<Student>> GetAll()
         {
             var results = studentService.GetAll();
@@ -40,7 +44,8 @@ namespace BASIC_API.Controllers
             return Ok(results);
         }
 
-        [HttpGet("/get/{studentId}")]
+        [HttpGet("get/{studentId}")]
+        [Authorize(Roles = Role.Teacher)]
         public ActionResult<Student> GetById(int studentId)
         {
             var result = studentService.GetById(studentId);
@@ -54,6 +59,7 @@ namespace BASIC_API.Controllers
         }
 
         [HttpPatch("edit-name")]
+        //[Authorize(Roles = Role.Teacher + "," + Role.Student)]
         public ActionResult<bool> GetById([FromBody] StudentUpdateDto studentUpdateModel)
         {
             var result = studentService.EditName(studentUpdateModel);
@@ -67,6 +73,7 @@ namespace BASIC_API.Controllers
         }
 
         [HttpPost("grades-by-course")]
+        //[Authorize(Roles = Role.Teacher + "," + Role.Student)]
         public ActionResult<GradesByStudent> Get_CourseGrades_ByStudentId([FromBody] StudentGradesRequest request)
         {
             var result = studentService.GetGradesById(request.StudentId, request.CourseType);
@@ -74,6 +81,7 @@ namespace BASIC_API.Controllers
         }
 
         [HttpGet("{classId}/class-students")]
+        //[Authorize(Roles = Role.Teacher + "," + Role.Student)]
         public IActionResult GetClassStudents([FromRoute] int classId)
         {
             var results = studentService.GetClassStudents(classId);
@@ -82,6 +90,7 @@ namespace BASIC_API.Controllers
         }
 
         [HttpGet("grouped-students")]
+        //[Authorize(Roles = Role.Teacher + "," + Role.Student)]
         public IActionResult GetGroupedStudents()
         {
             var results = studentService.GetGroupedStudents();
