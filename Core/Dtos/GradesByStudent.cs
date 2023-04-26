@@ -22,7 +22,8 @@ public class GradesByStudent
                 .Select(g => new GradeDto
                 {
                     Value = g.Value,
-                    Course = g.Course
+                    Course = g.Course.ToString(),
+                    Date = g.DateReceived
                 })
                 .ToList();
         }

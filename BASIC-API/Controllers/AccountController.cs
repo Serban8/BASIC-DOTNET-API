@@ -35,6 +35,8 @@ namespace BASIC_API.Controllers
         {
             var jwtToken = userService.Validate(payload);
 
+            if (jwtToken == null) { return Unauthorized(); }
+
             return Ok(new { token = jwtToken });
         }
     }

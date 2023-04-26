@@ -63,10 +63,15 @@ namespace Core.Services
         public string Validate(LoginDto payload)
         {
             User user = unitOfWork.Students.GetByEmail(payload.Email);
-
             if (user == null)
             {
                 user = unitOfWork.Teachers.GetByEmail(payload.Email);
+                if (user == null) return null;
+                user.role = DataLayer.Enums.Role.Teacher;
+            }
+            else 
+            {
+                user.role = DataLayer.Enums.Role.Student;
             }
 
             var passwordFine = authService.VerifyHashedPassword(user.PasswordHash, payload.Password);

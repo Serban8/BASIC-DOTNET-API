@@ -63,5 +63,23 @@ namespace DataLayer.Repositories
         {
             return dbContext.Students.FirstOrDefault(s => s.Email == email);
         }
+
+        public List<Student> GetAllWithGrades()
+        {
+            var results = dbContext.Students
+                .Include(e => e.Grades)
+                .ToList();
+
+            return results;
+        }
+
+        public Student GetGradesById(int studentId)
+        {
+            var result = dbContext.Students
+                .Include(e => e.Grades)
+                .FirstOrDefault(e => e.Id == studentId);
+
+            return result;
+        }
     }
 }

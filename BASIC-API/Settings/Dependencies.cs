@@ -24,6 +24,7 @@ namespace BASIC_API.Settings
             services.AddScoped<StudentService>();
             services.AddScoped<ClassService>();
             services.AddScoped<UserService>();
+            services.AddScoped<GradeService>();
             services.AddScoped<AuthorizationService>();
         }
 
@@ -32,6 +33,7 @@ namespace BASIC_API.Settings
             services.AddScoped<StudentsRepository>();
             services.AddScoped<ClassRepository>();
             services.AddScoped<TeachersRepository>();
+            services.AddScoped<GradesRepository>();
             services.AddScoped<UnitOfWork>();
         }
 
